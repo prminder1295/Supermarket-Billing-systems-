@@ -1,0 +1,62 @@
+#include <stdio.h> 
+#include <string.h> 
+#define MAX 100 
+int main() { 
+    char item_name[MAX][50]; 
+    int quantity[MAX]; 
+    float price[MAX]; 
+    float total_price[MAX]; 
+ 
+    int top = -1; 
+    int choice; 
+    float grand_total = 0; 
+ 
+    printf("=== Supermarket Billing System (Using Stack) ===\n"); 
+ 
+    while (1) { 
+        printf("\n1. Add Item\n2. Print Bill and Exit\n"); 
+        printf("Enter your choice: "); 
+        scanf("%d", &choice); 
+ 
+        if (choice == 1) { 
+            if (top >= MAX - 1) { 
+                printf("Stack Overflow! Cannot add more items.\n"); 
+                continue; 
+            } 
+ 
+            top++; 
+ 
+            printf("Enter item name: "); 
+            scanf("%s", item_name[top]); 
+ 
+            printf("Enter quantity: "); 
+            scanf("%d", &quantity[top]); 
+ 
+            printf("Enter price per item: "); 
+            scanf("%f", &price[top]); 
+ 
+            total_price[top] = quantity[top] * price[top]; 
+            printf("Item added: %s | Qty: %d | Price: %.2f | Total: %.2f\n",  
+                item_name[top], quantity[top], price[top], total_price[top]); 
+        }  
+        else if (choice == 2) { 
+            printf("\n===== Final Bill =====\n"); 
+            printf("%-20s %-10s %-10s %-10s\n", "Item", "Qty", "Price", "Total"); 
+ 
+            while (top >= 0) { 
+                printf("%-20s %-10d %-10.2f %-10.2f\n",  
+                    item_name[top], quantity[top], price[top], total_price[top]); 
+                grand_total += total_price[top]; 
+                top--; 
+            } 
+ 
+            printf("\nGrand Total: %.2f\n", grand_total); 
+            printf("Thank you for shopping!\n"); 
+            break; 
+}  
+else { 
+printf("Invalid choice. Try again.\n"); 
+} 
+} 
+return 0; 
+}
